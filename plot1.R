@@ -6,12 +6,13 @@ if(!file.exists("household_power_consumption.txt")){
 
       alldata<-read.table("household_power_consumption.txt", sep = ";", head=TRUE)
 
-      plotdata<-alldata[as.Date(c("2007-02-01","2007-02-02"))== 
-                              as.Date(strptime(alldata[,1], "%d/%m/%Y")),]
+      plotdata1<-alldata[as.character(alldata$Date)==c("1/2/2007"),]
+      plotdata2<-alldata[as.character(alldata$Date)==c("2/2/2007"),]
+      plotdata<-rbind(plotdata1,plotdata2)                    
       rm(alldata)
       
       #prepare your data for the graph
-      gap<-as.integer(plotdata$Global_active_power)
+      gap<-as.numeric(as.character(plotdata$Global_active_power))
       
       #open the graphics device, a png file
       png(file="plot1.png")
